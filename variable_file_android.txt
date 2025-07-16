@@ -1,0 +1,2 @@
+# ============ List variable ==========
+--variable env:ZONE6
