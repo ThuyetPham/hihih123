@@ -1,6 +1,0 @@
-*** Variables ***
-${ANDROID_APP_PATH}    C:/Users/thuyet.pt/Desktop/New_POS/apps/app.apk
-${ANDROID_DEVICE_NAME}    Android
-${ANDROID_PLATFORM_NAME}    Android
-${ANDROID_AUTOMATION_NAME}    UiAutomator2
-${ANDROID_PLATFORM_VERSION}    12.0
