@@ -1,9 +1,12 @@
 *** Settings ***
 Library       AppiumLibrary
 Library       JSONLibrary
+Library       OperatingSystem
 Resource    mobile_variables.txt
 Resource    ../core/API/api_access.robot
 Resource    ../core/API/api_access_mobile.robot
+Resource    ../core/Login/Login_action.robot
+
 
 *** Keywords ***
 Init Test Environment
@@ -14,3 +17,4 @@ Init Test Environment
     Set Global Variable    \${bearertoken}    ${token_value}
     Set Global Variable    \${resp.cookies}    ${resp.cookies}
     Append To Environment Variable    PATH    ${EXECDIR}${/}drivers
+
