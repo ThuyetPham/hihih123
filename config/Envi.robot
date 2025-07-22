@@ -2,7 +2,7 @@
 Library       AppiumLibrary
 Library       JSONLibrary
 Library       OperatingSystem
-Resource    mobile_variables.txt
+Resource    mobile_variables_${env}.txt
 Resource    ../core/API/api_access.robot
 Resource    ../core/API/api_access_mobile.robot
 Resource    ../core/Login/Login_action.robot

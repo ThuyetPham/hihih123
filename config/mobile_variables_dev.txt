@@ -1,0 +1,19 @@
+*** Variables ***
+${API_URL}     https://auto1.kiotviet.vn/api
+${RETAILER_NAME}   auto1
+${BRANCH_ID}   172786
+${LATESTBRANCH}    LatestBranch_366420_441968
+${URL}     ZONE1=https://auto1.kiotviet.vn
+${ADMIN}   admin
+${PASSWORD}    Kiotviet12345678
+${SALE_API_URL}    https://sale.kiotapi.com/api
+${MOBILE_API_URL}      https://mobile.kiotapi.com
+
+${remote}     http://127.0.0.1:4723
+${BUNDLE_ID}     net.citigo.kiotviet.touch
+${ACTIVITY_NAME}    net.citigo.kiotviet.manager.MainActivity
+
+${DEVICE_NAME}    Android
+${PLATFORM_NAME}    Android
+${AUTOMATION_NAME}    UiAutomator2
+${PLATFORM_VER}    13.0

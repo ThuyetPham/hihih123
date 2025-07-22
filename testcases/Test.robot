@@ -1,5 +1,4 @@
 *** Settings ***
-Documentation     Test đơn giản để kiểm tra kết nối Appium
 Library           AppiumLibrary
 Resource         ../config/Envi.robot
 
