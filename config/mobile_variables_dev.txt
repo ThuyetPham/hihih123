@@ -9,11 +9,13 @@ ${PASSWORD}    Kiotviet12345678
 ${SALE_API_URL}    https://sale.kiotapi.com/api
 ${MOBILE_API_URL}      https://mobile.kiotapi.com
 
-${remote}     http://127.0.0.1:4723
+${remote}     http://127.0.0.1:4724
 ${BUNDLE_ID}     net.citigo.kiotviet.touch
 ${ACTIVITY_NAME}    net.citigo.kiotviet.manager.MainActivity
 
 ${DEVICE_NAME}    Android
 ${PLATFORM_NAME}    Android
 ${AUTOMATION_NAME}    UiAutomator2
-${PLATFORM_VER}    13.0
+${PLATFORM_VER}    9.0
+
+${THSJS}    1234

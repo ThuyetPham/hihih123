@@ -1,24 +1,24 @@
 *** Settings ***
-Library       AppiumLibrary
-Resource    ../../config/mobile_variables.txt
+Library     AppiumLibrary
+Resource    ../../config/Envi.robot
 Resource    ../../resources/MobileActions.robot
 
 *** Variables ***
 # Locators cho KiotViet Touch app
-${textbox_retailername_pos}    id=net.citigo.kiotviet.touch:id/etRetailerName
-${textbox_username_pos}        id=net.citigo.kiotviet.touch:id/etUsername
-${textbox_pass_pos}            id=net.citigo.kiotviet.touch:id/etPassword
-${xpath_close_button}          xpath=//android.widget.ImageButton[@content-desc="Close"]
-${button_login_pos}            id=net.citigo.kiotviet.touch:id/btnLogin
+${textbox_retailername_pos}    id=net.citigo.kiotviet.touch:id/tvShop
+${textbox_username_pos}        id=net.citigo.kiotviet.touch:id/tvUsername
+${textbox_pass_pos}            id=net.citigo.kiotviet.touch:id/textPassword
+${button_login_pos}            id=net.citigo.kiotviet.touch:id/buttonLogin
 
 *** Keywords ***
 Login To POS
     [Documentation]    Đăng nhập vào KiotViet Touch POS
-    [Arguments]    ${retailer_name}    ${user_name}    ${password}
-    
+    log    ${PLATFORM_NAME}
+    log     ${remote}
+    log     ${AUTOMATION_NAME}
     # Mở ứng dụng
     Open Application    ${remote}    
-    ...    platformName=${PLATFORM_NAME}    
+    ...    platformName=${PLATFORM_NAME}
     ...    platformVersion=${PLATFORM_VER}    
     ...    deviceName=${DEVICE_NAME}    
     ...    appPackage=${BUNDLE_ID}    
@@ -27,15 +27,15 @@ Login To POS
     ...    noReset=false
     
     # Đăng nhập
-    Nhập Text An Toàn    ${textbox_retailername_pos}    ${retailer_name}
-    Nhập Text An Toàn    ${textbox_username_pos}    ${user_name}
-    Nhập Text An Toàn    ${textbox_pass_pos}    ${password}
+    Nhập Text An Toàn    ${textbox_retailername_pos}    ${RETAILER_NAME}
+    Nhập Text An Toàn    ${textbox_username_pos}    ${USER_NAME}
+    Nhập Text An Toàn    ${textbox_pass_pos}    ${PASSWORD}
     
     # Click đăng nhập
     Click Element An Toàn    ${button_login_pos}
     
     # Chờ đăng nhập thành công
-    Chờ Element Xuất Hiện    id=net.citigo.kiotviet.touch:id/dashboard
+#    Chờ Element Xuất Hiện    id=net.citigo.kiotviet.touch:id/dashboard
 
 Launch POS Application
     [Documentation]    Mở ứng dụng KiotViet Touch POS

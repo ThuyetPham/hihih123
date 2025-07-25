@@ -2,6 +2,7 @@
 Library           AppiumLibrary
 Library           BuiltIn
 Library           Collections
+Library           String
 
 *** Variables ***
 ${DEFAULT_TIMEOUT}    20s
@@ -240,4 +241,111 @@ Nhập Text Với Retry
         Run Keyword Unless    ${status}    Log    Lần thử ${attempt}: Nhập text vào ${locator} thất bại
         Run Keyword If    ${attempt} < ${max_attempts}    Sleep    1s
     END
-    Should Be True    ${status}    Không thể nhập text vào element ${locator} sau ${max_attempts} lần thử 
+    Should Be True    ${status}    Không thể nhập text vào element ${locator} sau ${max_attempts} lần thử
+
+# ===== FORMAT STRING FUNCTIONS =====
+Format XPath Locator
+    [Documentation]    Format XPath locator với tham số
+    [Arguments]    ${template}    ${param1}    ${param2}=${EMPTY}    ${param3}=${EMPTY}
+    ${locator}=    Format String    ${template}    ${param1}    ${param2}    ${param3}
+    [Return]    ${locator}
+
+Format Text Locator
+    [Documentation]    Format locator cho text element
+    [Arguments]    ${text}
+    ${locator}=    Format String    xpath=//*[@text='{0}']    ${text}
+    [Return]    ${locator}
+
+Format ID Locator
+    [Documentation]    Format locator cho ID element
+    [Arguments]    ${id_template}    ${param1}    ${param2}=${EMPTY}
+    ${locator}=    Format String    id={0}    ${id_template}
+    [Return]    ${locator}
+
+Format Class Locator
+    [Documentation]    Format locator cho class element
+    [Arguments]    ${class_name}    ${index}=1
+    ${locator}=    Format String    xpath=//*[@class='{0}'][{1}]    ${class_name}    ${index}
+    [Return]    ${locator}
+
+# ===== WAIT AND CLICK FUNCTIONS =====
+Chờ Và Click Element
+    [Documentation]    Chờ element xuất hiện rồi click
+    [Arguments]    ${locator}    ${timeout}=${DEFAULT_TIMEOUT}
+    Chờ Element Xuất Hiện    ${locator}    ${timeout}
+    Click Element    ${locator}
+    Log    Đã chờ và click element: ${locator}
+
+Chờ Và Click Text
+    [Documentation]    Chờ text xuất hiện rồi click
+    [Arguments]    ${text}    ${timeout}=${DEFAULT_TIMEOUT}
+    ${text_locator}=    Format Text Locator    ${text}
+    Chờ Và Click Element    ${text_locator}    ${timeout}
+    Log    Đã chờ và click text: ${text}
+
+Chờ Và Click Element Có Thể Click
+    [Documentation]    Chờ element có thể click được rồi click
+    [Arguments]    ${locator}    ${timeout}=${DEFAULT_TIMEOUT}
+    Chờ Element Có Thể Click    ${locator}    ${timeout}
+    Click Element    ${locator}
+    Log    Đã chờ và click element có thể click: ${locator}
+
+Chờ Và Click Element Với Retry
+    [Documentation]    Chờ và click element với retry
+    [Arguments]    ${locator}    ${max_attempts}=3    ${timeout}=${DEFAULT_TIMEOUT}
+    FOR    ${attempt}    IN RANGE    1    ${max_attempts} + 1
+        ${status}=    Run Keyword And Return Status    Chờ Và Click Element    ${locator}    ${timeout}
+        Run Keyword If    ${status}    Exit For Loop
+        Run Keyword Unless    ${status}    Log    Lần thử ${attempt}: Chờ và click element ${locator} thất bại
+        Run Keyword If    ${attempt} < ${max_attempts}    Sleep    2s
+    END
+    Should Be True    ${status}    Không thể chờ và click element ${locator} sau ${max_attempts} lần thử
+
+# ===== WAIT AND INPUT FUNCTIONS =====
+Chờ Và Nhập Text
+    [Documentation]    Chờ element xuất hiện rồi nhập text
+    [Arguments]    ${locator}    ${text}    ${timeout}=${DEFAULT_TIMEOUT}
+    Chờ Element Xuất Hiện    ${locator}    ${timeout}
+    Input Text    ${locator}    ${text}
+    Log    Đã chờ và nhập text '${text}' vào element: ${locator}
+
+Chờ Và Nhập Text An Toàn
+    [Documentation]    Chờ element xuất hiện rồi nhập text an toàn
+    [Arguments]    ${locator}    ${text}    ${timeout}=${DEFAULT_TIMEOUT}
+    Chờ Element Xuất Hiện    ${locator}    ${timeout}
+    Clear Text    ${locator}
+    Input Text    ${locator}    ${text}
+    Log    Đã chờ và nhập text an toàn '${text}' vào element: ${locator}
+
+Chờ Và Nhập Text Từng Ký Tự
+    [Documentation]    Chờ element xuất hiện rồi nhập text từng ký tự
+    [Arguments]    ${locator}    ${text}    ${timeout}=${DEFAULT_TIMEOUT}
+    Chờ Element Xuất Hiện    ${locator}    ${timeout}
+    Clear Text    ${locator}
+    FOR    ${char}    IN    @{text}
+        Input Text    ${locator}    ${char}
+        Sleep    0.1s
+    END
+    Log    Đã chờ và nhập text từng ký tự '${text}' vào element: ${locator}
+
+Chờ Và Nhập Text Với Retry
+    [Documentation]    Chờ và nhập text với retry
+    [Arguments]    ${locator}    ${text}    ${max_attempts}=3    ${timeout}=${DEFAULT_TIMEOUT}
+    FOR    ${attempt}    IN RANGE    1    ${max_attempts} + 1
+        ${status}=    Run Keyword And Return Status    Chờ Và Nhập Text    ${locator}    ${text}    ${timeout}
+        Run Keyword If    ${status}    Exit For Loop
+        Run Keyword Unless    ${status}    Log    Lần thử ${attempt}: Chờ và nhập text vào ${locator} thất bại
+        Run Keyword If    ${attempt} < ${max_attempts}    Sleep    2s
+    END
+    Should Be True    ${status}    Không thể chờ và nhập text vào element ${locator} sau ${max_attempts} lần thử 
+
+# ===== FORMAT STRING FUNCTIONS =====
+Format String And Click
+    [Arguments]    ${template}    ${param1}
+    ${locator}=    Format String    ${template}    ${param1}
+    Click Element An Toàn    $locator
+
+Format String And Visible
+    [Arguments]    ${template}    ${param1}
+    ${locator}=    Format String    ${template}    ${param1}
+    Element Should Be Visible    ${locator}
