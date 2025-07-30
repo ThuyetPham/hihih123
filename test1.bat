@@ -1,1 +1,0 @@
-robot -T -d re1 --argumentfile  variable_file_android.txt  -i  Product  testcases

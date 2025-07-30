@@ -1,6 +1,0 @@
-# ============ List variable ==========
---variable env:ZONE6
---variable account:admin
---variable screen:postouchp
---variable device:postouchp
---variable remote:http://127.0.0.1:4723
